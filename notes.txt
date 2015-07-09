@@ -1,0 +1,121 @@
+Terms:
+
+repository - files to be tracked together
+
+unreachable - code that cannot be reached by any branch. Ex. check out an old commit of master (detached head) and make a change. there's no way to get back here if you leave, even if you check it in. if you want to keep the change, you can overcome it by simply creating a new branch for the change:
+git checkout -b <new_branch_name>     OR     git branch <new_branch_name>
+                                             git checkout <new_branch_name>
+
+
+Commands:
+
+history (from within the project directory):
+git log          (shows versions (git ids) and comments)
+git log --stat   (also shows what files changed and a little info)
+git log --graph --oneline <branch1> <branch2> ... 
+                 (shows "graphical" representation of the history)
+
+diff (of the entire project from the project directory):
+git diff <git_id_1 (older)> <git_id_2 (newer)>
+git diff 4035769377cce96a88d5c1167079e12f30492391 25ede836903881848fea811df5b687b59d962da3
+git diff           (will compare 'working directory' to 'staging area')
+git diff --staged  (will compare 'staging area' to 'repository')
+
+show (diff'ing when you don't know the version of the parent (i.e. you see the differences of multiples merged branches in git log):
+git show <version>
+
+configure colored diff output:
+git config --global color.ui auto
+
+set a default editor:
+git config --global core.editor "subl -n -w"
+
+misc config:
+git config --global push.default upstream
+git config --global merge.conflictstyle diff3
+
+clone a repository (copy down a repository and its history):
+git clone <url>
+git clone https://github.com/udacity/asteroids.git
+
+checkout (look at a previous version of a repository... NOT like svn checkout)
+- keep in mind that 'git log' will show this as the most recent version now
+- 'master' is the most recent version if you want to get back to that
+- checking out a branch works for a branch you've created locally or a branch in the project that exists on a remote repository
+git checkout <version>
+git checkout <branch_name>
+
+create a new repository (in a directory not already in source control):
+-this action will not:
+  . do an initial commit
+  . moving any files to staging area (for eventual commit)
+git init
+
+concepts: 
+working directory - all files 
+staging area - a list of files we are able to commit (add manually to this list)
+repository - tracks all changes that have been committed
+
+
+move file from working directory the staging area:
+git add <file>
+
+remove file from the staging area:
+git reset <file>
+
+gets rid of changes in the working directory and staging area:
+git reset --hard
+
+committing a change to the repository:
+git commit
+git commit -m "Commit message"
+
+what files are changed since the last commit:
+git status
+
+version:
+git --version
+
+configuration:
+~/git-completion.bash
+~/git-prompt.sh
+~/.bash_profile
+
+set default editor:
+https://help.github.com/articles/associating-text-editors-with-git/
+
+branches (are labels):
+- master - created for you
+- "tip of branch" - the most recent commit to that branch
+- branches can have more than one label
+- deleting a branch doesn't remove the history, just the label (unless you make it unreachable... by not merging it to a branch that still exists)
+git branch (shows current branches)
+git branch <new_branch_name>
+git branch -d <branch_to_delete_label>
+
+merging: 
+- will merge to whatever branch you currently have checked out
+- current branch parameter is optional)
+- if there is a conflict and auto-merge cannot happen 
+  . the conflicts will be listed in file with the problems (look for '<<<<<')
+  . edit the actual file and decide what stays... taking out the 'diff'ed' 
+    stuff in the file
+  . save file
+  . git status                  (should show "both modified" for file changed)
+  . git add <merged_file>       (add to staging area)
+  . git status                  (should show that conflicts are resolved)
+  . continue to merge command
+git merge <branch1> <branch2>
+
+remotes (using remote repositories):
+- repo urls look something like this: git@github.com:cbuckey-uda/reflections.git
+git remote     (list all current remote repositories)
+git remote -v  (verbose - list where data will be fetched and pushed)
+git remote <nickname_for_remote_usually_'origin'> <remote_repo_url>
+
+push (sending changes to the remote):
+- will only push the missing commits on the "branch" you are pushing
+git push <nickname_for_remote_usually_'origin'> <branch_to_push>
+
+pull:
+
