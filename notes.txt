@@ -6,6 +6,29 @@ unreachable - code that cannot be reached by any branch. Ex. check out an old co
 git checkout -b <new_branch_name>     OR     git branch <new_branch_name>
                                              git checkout <new_branch_name>
 
+collaborators - should be added to a project on GitHub if you want others to
+  help with the dev
+
+fork - when you like a project, but want to do something completely your own
+clone - when you want to contribute to a project
+branch - when you're making "breaking" changes to a project and don't want all
+  to see just yet
+
+origin/master - the label of the latest commit on GitHub (that we know of)
+   can 'diff', 'log', etc. with it
+
+fast-forward merge - a merge that simply merges a label with an ancestor
+   (effectively just moving a label to the latest version)
+
+pull request: if you have a change you'd like to be made part of 'master' in
+   a collaborative project, create a branch, make the change, add, commit, push,
+   and then create a pull request for collaborators to review whether the change
+   should be made part of master
+
+   it seems that in a collaborative project, this would be preferred, but that
+   means that someone will be inspecting all of your check-ins. It might be a
+   lot of overhead to the team (or the reviewer), but would end up with a lot
+   less errors.
 
 Commands:
 
@@ -37,6 +60,7 @@ git config --global merge.conflictstyle diff3
 clone a repository (copy down a repository and its history):
 git clone <url>
 git clone https://github.com/udacity/asteroids.git
+- you can also clone a local repo to another spot on your computer
 
 checkout (look at a previous version of a repository... NOT like svn checkout)
 - keep in mind that 'git log' will show this as the most recent version now
@@ -96,7 +120,7 @@ git branch -d <branch_to_delete_label>
 merging: 
 - will merge to whatever branch you currently have checked out
 - current branch parameter is optional)
-- if there is a conflict and auto-merge cannot happen 
+- if there is a conflict and auto-merge cannot happen (when running merge)
   . the conflicts will be listed in file with the problems (look for '<<<<<')
   . edit the actual file and decide what stays... taking out the 'diff'ed' 
     stuff in the file
@@ -104,18 +128,36 @@ merging:
   . git status                  (should show "both modified" for file changed)
   . git add <merged_file>       (add to staging area)
   . git status                  (should show that conflicts are resolved)
-  . continue to merge command
+  . git commit
 git merge <branch1> <branch2>
 
 remotes (using remote repositories):
-- repo urls look something like this: git@github.com:cbuckey-uda/reflections.git
+- repo urls look something like this: 
+     https://github.com/jonathandgrubb/reflections.git 
+- remotes are added per repo, so I can have one called 'origin' in every
+     project directory
 git remote     (list all current remote repositories)
 git remote -v  (verbose - list where data will be fetched and pushed)
-git remote <nickname_for_remote_usually_'origin'> <remote_repo_url>
+git remote add <nickname_for_remote_usually_'origin'> <remote_repo_url>
 
 push (sending changes to the remote):
 - will only push the missing commits on the "branch" you are pushing
 git push <nickname_for_remote_usually_'origin'> <branch_to_push>
 
-pull:
+pull (getting changes available on the remote repository):
+git pull <nickname_for_remote_usually_'origin'> <brach_to_pull>
 
+forking (making a copy on GibHub of someone else's remote repository in 
+  your area):
+- it's like cloning where the original repo author gets credit for the original
+
+fetch:
+- get the latest remote branch without having to merge it into your own
+- What is the benefit of having a copy of the last known state of the 
+  remote stored locally? You know what's been going on and have the opportunity
+  to merge in latest often so you don't get behind and have to do a huge merge
+  later
+git pull origin master     SAME AS     git fetch origin
+                                       git merge master origin/master
+- in the case of this fetch command, we will update the origin/master, since
+  that is the branch we're currently in
