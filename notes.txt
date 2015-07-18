@@ -30,6 +30,8 @@ pull request: if you have a change you'd like to be made part of 'master' in
    lot of overhead to the team (or the reviewer), but would end up with a lot
    less errors.
 
+   it's standard in a public repository to work from a branch and not master
+
 Commands:
 
 history (from within the project directory):
@@ -136,6 +138,13 @@ remotes (using remote repositories):
      https://github.com/jonathandgrubb/reflections.git 
 - remotes are added per repo, so I can have one called 'origin' in every
      project directory
+- remotes can be used to merge a fork with a change to the original
+    (git add remote upstream <original_project_url>)
+    (git pull upstream master)
+    (git checkout master)
+    (git merge master <forked_branch>)
+    fix conflicts, add, commit, push forked_branch back to 'origin'
+    (push master back to 'origin' as well?)
 git remote     (list all current remote repositories)
 git remote -v  (verbose - list where data will be fetched and pushed)
 git remote add <nickname_for_remote_usually_'origin'> <remote_repo_url>
